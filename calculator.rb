@@ -2,24 +2,16 @@
 
 # A simple calculator class to go over basic Ruby fundamentals
 class Calculator
-  attr_reader :num1, :num2, :operator
+  attr_reader :num1, :num2
 
   def initialize
     puts 'Simple Calculator'
     print '-' * 50
     puts
 
-    puts 'Enter the first number'
-    @num1 = gets.chomp.to_i
-
-    puts 'Enter the second number'
-    @num2 = gets.chomp.to_i
-
-    puts 'What kind of operation you would like to do?'
-    puts 'Enter 1 for Addition, 2 for Subtraction, 3 for Multiplication, 4 for Division, or 5 to get a Remainder'
-    @operator = gets.chomp.to_i
-
-    operation
+    @num1 = integer_input
+    @num2 = integer_input
+    operator_input
   end
 
   def self.add(num1, num2)
@@ -44,26 +36,50 @@ class Calculator
 
   private
 
-  def operation
-    case operator
-    when 1
-      Calculator.add(num1, num2)
-    when 2
-      Calculator.subtract(num1, num2)
-    when 3
-      Calculator.multiply(num1, num2)
-    when 4
-      Calculator.divide(num1, num2)
-    when 5
-      Calculator.remainder(num1, num2)
-    else
-      puts 'Invalid input'
+  def integer_input
+    loop do
+      puts 'Enter a number'
+      num = gets.chomp
+
+      return num.to_i if valid_integer?(num)
+
+      puts 'Please enter a valid integer'
+    end
+  end
+
+  def operator_input
+    loop do
       puts 'What kind of operation you would like to do?'
       puts 'Enter 1 for Addition, 2 for Subtraction, 3 for Multiplication, 4 for Division, or 5 to get a Remainder'
-      @operator = gets.chomp.to_i
+      operator = gets.chomp.to_i
 
-      operation
+      case operator
+      when 1
+        Calculator.add(num1, num2)
+        break
+      when 2
+        Calculator.subtract(num1, num2)
+        break
+      when 3
+        Calculator.multiply(num1, num2)
+        break
+      when 4
+        Calculator.divide(num1, num2)
+        break
+      when 5
+        Calculator.remainder(num1, num2)
+        break
+      else
+        puts 'Invalid input'
+      end
     end
+  end
+
+  def valid_integer?(num)
+    Integer(num)
+    true
+  rescue ArgumentError
+    false
   end
 end
 
