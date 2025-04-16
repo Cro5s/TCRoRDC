@@ -15,27 +15,36 @@ def authenticator
   p 'If password is correct, you will get back the user object'
 
   while tries < 4
-    p 'Enter your username: '
-    current_user = gets.chomp
-    p 'Enter your password: '
-    current_password = gets.chomp
+    print 'Enter your username: '
+    current_user = gets.chomp.downcase
+    print 'Enter your password: '
+    current_password = gets.chomp.downcase
 
-    users.each do |user|
-      next unless user[:username] == current_user && user[:password] == current_password
+    value = auth_user(current_user, current_password, users)
 
-      p 'User Authenticated!'
-      p user
-      return user
-    end
+    return value unless value.instance_of?(String)
 
-    p 'Credentials were not correct'
-    p 'Press q to quit or any other key to continue: '
-    entry = gets.chomp
+    p value
+    print 'Press q to quit or any other key to continue: '
+    entry = gets.chomp.downcase
+    puts
 
-    entry == 'q' ? break : tries += 1
+    entry == 'q' ? return : tries += 1
   end
 
   p 'You have exceeded the number of attempts'
+end
+
+def auth_user(username, password, list_of_users)
+  list_of_users.each do |user|
+    next unless user[:username] == username && user[:password] == password
+
+    p 'User Authenticated!'
+    p user
+    return user
+  end
+
+  'Credentials were not correct'
 end
 
 authenticator
