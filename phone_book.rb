@@ -17,7 +17,11 @@ class PhoneBook
   end
 
   def self.get_area_code(dail_book, city)
-    dail_book[city]
+    if dail_book.include?(city)
+      p "The area code for #{city} is #{dail_book[city]}"
+    else
+      p 'The city you entered is not in the Phone book'
+    end
   end
 
   answer = ''
@@ -32,8 +36,7 @@ class PhoneBook
 
       p 'Enter your selection'
       city = gets.chomp.downcase
-
-      p "The area code for #{city} is #{PhoneBook.get_area_code(dail_book, city)}"
+      PhoneBook.get_area_code(dail_book, city)
     elsif answer == 'n'
       break
     end
