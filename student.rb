@@ -1,8 +1,5 @@
-# frozen_string_literal: true
-
 require 'bcrypt'
 
-# Student Class
 class Student
   include BCrypt
 
