@@ -23,16 +23,17 @@ class Student
   end
 
   def valid_password?(password)
-    p BCrypt::Password.new(password_digest) == password
+    p Password.new(password_digest) == password
   end
 
   def create_password_digest(password)
-    BCrypt::Password.create(password)
+    Password.create(password)
   end
 end
 
 cross = Student.new('Cross', 'Lee', 'cross@email.com', 'Cross', 'password123')
 cross.info
+cross.full_name
 cross.valid_password?('password123')
 cross.valid_password?('password')
 
