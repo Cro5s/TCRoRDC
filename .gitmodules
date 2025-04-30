@@ -1,3 +1,6 @@
 [submodule "rails_app"]
 	path = rails_app
 	url = https://github.com/Cro5s/basic_rails_app.git
+[submodule "alpha-blog"]
+	path = alpha-blog
+	url = git@github.com:Cro5s/alpha-blog.git
